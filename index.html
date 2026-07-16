@@ -750,11 +750,17 @@
             position: relative;
         }
 
-        .dock-item:hover, .dock-item.active {
+        .dock-item:hover {
             color: #fff;
             background: rgba(255,255,255,0.08);
             box-shadow: 0 0 15px rgba(255,255,255,0.05);
-        }
+}
+
+.dock-item.active {
+    color: var(--satellite-glow);
+    background: rgba(251, 253, 198, 0.12);
+    box-shadow: 0 0 15px var(--satellite-glow);
+}
 
         /* Tooltip for dock */
         .dock-item::before {
