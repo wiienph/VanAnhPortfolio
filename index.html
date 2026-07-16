@@ -787,6 +787,18 @@
             else if (type === 'integrity') title.innerHTML = "🛡️ Nói KHÔNG với hành vi chép nguyên bản AI để nộp";
             else if (type === 'crit') title.innerHTML = "🧠 Giữ vững óc phán đoán phản biện và không phụ thuộc";
         }
+        document.querySelectorAll('.content-display').forEach(content => {
+    let timer;
+
+    content.addEventListener('scroll', () => {
+        content.classList.add('scrolling');
+
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+            content.classList.remove('scrolling');
+        }, 500);
+    });
+});
     </script>
 </body>
 </html>
