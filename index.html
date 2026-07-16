@@ -1151,7 +1151,7 @@
 
             <!-- Star Nodes -->
             <!-- Node 1 -->
-            <div class="star-node sn-1" onclick="selectStar(1, this)" data-lines="l-1">
+            <div class="star-node sn-1" onclick="selectStar(1, this)" data-lines="1-1">
                 <div class="star-core"></div>
                 <div class="star-label">✦ 01. Quản lý tệp tin</div>
             </div>
@@ -1426,7 +1426,7 @@
         }
 
         // Liên kết sự kiện nhấp Dock điều hướng đến chòm sao tương ứng
-        function triggerStarClick(taskId) {
+        function triggerStarClick(taskId + 1) {
             const starClassMap = {
                 1: '.sn-1',
                 2: '.sn-2',
@@ -1437,7 +1437,7 @@
             };
             const starElement = document.querySelector(starClassMap[taskId]);
             if(starElement) {
-                selectStar(taskId, starElement);
+                selectStar(taskId + 1, starElement);
             }
         }
 
