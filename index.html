@@ -4,15 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Phạm Đỗ Vân Anh | Portfolio</title>
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <style>
-        /* Core Reset & Variables */
         :root {
             --bg-deep: #060411;
             --glass-border: rgba(255, 255, 255, 0.08);
@@ -26,754 +22,182 @@
             --font-body: 'Quicksand', sans-serif;
             --satellite-glow: #FBFDC6;
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            user-select: none;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; user-select: none; }
         body {
             font-family: var(--font-body);
             background-color: var(--bg-deep);
-            /* Phủ nhẹ một lớp tối mỏng lên back.gif để chữ nổi bật mà sao vẫn lung linh */
             background-image: linear-gradient(rgba(10, 8, 28, 0.75), rgba(10, 8, 28, 0.85)), url('back.gif');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            color: var(--text-main);
-            height: 100vh;
-            width: 100vw;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed;
+            color: var(--text-main); height: 100vh; width: 100vw; overflow: hidden;
+            display: flex; align-items: center; justify-content: center;
         }
-
-        /* Ambient floating space particles behind everything */
-        #space-canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        /* Unconventional Borderless Split View Layout */
+        #space-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
         .universe-container {
-            display: grid;
-            grid-template-columns: 460px 1fr;
-            width: 95%;
-            height: 90vh;
-            max-width: 1450px;
-            background: transparent;
-            border: none;
-            border-radius: 0;
-            box-shadow: none;
-            overflow: hidden;
-            position: relative;
-            z-index: 10;
+            display: grid; grid-template-columns: 460px 1fr; width: 95%; height: 90vh; max-width: 1450px;
+            background: transparent; border: none; border-radius: 0; box-shadow: none;
+            overflow: hidden; position: relative; z-index: 10;
         }
-
-        /* LEFT COLUMN: Pure text and elements floating seamlessly on back.gif */
         .mirror-panel {
-            background: transparent;
-            border-right: none;
-            backdrop-filter: none;
-            -webkit-backdrop-filter: none;
-            padding: 20px 30px 20px 0; /* Padding phải để giãn khoảng cách với chòm sao */
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            position: relative;
-            z-index: 5;
-            overflow-y: auto;
+            background: transparent; border-right: none; backdrop-filter: none; -webkit-backdrop-filter: none;
+            padding: 20px 30px 110px 0;
+            display: flex; flex-direction: column; justify-content: space-between; position: relative; z-index: 5; overflow-y: auto;
         }
-
-        .mirror-panel::-webkit-scrollbar {
-            width: 4px;
-        }
-        .mirror-panel::-webkit-scrollbar-thumb {
-            background: rgba(255,255,255,0.1);
-            border-radius: 10px;
-        }
-
-        /* Left-panel Mini Tab Switcher */
+        .mirror-panel::-webkit-scrollbar { width: 4px; }
+        .mirror-panel::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
         .mirror-tabs {
-            display: flex;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--glass-border);
-            padding: 4px;
-            border-radius: 30px;
-            margin-bottom: 20px;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            display: flex; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--glass-border);
+            padding: 4px; border-radius: 30px; margin-bottom: 20px; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
             transition: all 0.3s ease;
         }
-
         .mirror-tab-btn {
-            flex: 1;
-            padding: 8px 15px;
-            border: none;
-            background: transparent;
-            color: var(--text-sub);
-            font-family: var(--font-body);
-            font-weight: 600;
-            font-size: 0.85rem;
-            cursor: pointer;
-            border-radius: 20px;
-            transition: all 0.3s ease;
+            flex: 1; padding: 8px 15px; border: none; background: transparent; color: var(--text-sub);
+            font-family: var(--font-body); font-weight: 600; font-size: 0.85rem; cursor: pointer; border-radius: 20px; transition: all 0.3s ease;
         }
-
         .mirror-tab-btn.active {
-            background: linear-gradient(135deg, var(--pastel-pink), var(--accent-purple));
-            color: #fff;
-            box-shadow: 0 4px 10px rgba(163, 140, 253, 0.3);
+            background: linear-gradient(135deg, var(--pastel-pink), var(--accent-purple)); color: #fff; box-shadow: 0 4px 10px rgba(163, 140, 253, 0.3);
         }
-
-        /* Profile & Intro View */
-        .profile-section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            transition: all 0.4s ease;
-        }
-
-        .avatar-orbit {
-            position: relative;
-            width: 140px;
-            height: 140px;
-            margin-bottom: 20px;
-            transition: transform 0.4s ease;
-        }
-
-        .avatar-orbit:hover {
-            transform: scale(1.05) rotate(5deg);
-        }
-
+        .profile-section { display: flex; flex-direction: column; align-items: center; text-align: center; transition: all 0.4s ease; }
+        .avatar-orbit { position: relative; width: 140px; height: 140px; margin-bottom: 20px; transition: transform 0.4s ease; }
+        .avatar-orbit:hover { transform: scale(1.05) rotate(5deg); }
         .avatar-orbit::before {
-            content: '';
-            position: absolute;
-            top: -10px; left: -10px; right: -10px; bottom: -10px;
-            border: 1px dashed var(--pastel-pink);
-            border-radius: 50%;
-            animation: spin 20s linear infinite;
+            content: ''; position: absolute; top: -10px; left: -10px; right: -10px; bottom: -10px;
+            border: 1px dashed var(--pastel-pink); border-radius: 50%; animation: spin 20s linear infinite;
         }
-
         .avatar-holder {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            padding: 4px;
+            width: 100%; height: 100%; border-radius: 50%; padding: 4px;
             background: linear-gradient(135deg, var(--pastel-pink), var(--accent-purple), var(--pastel-green));
             box-shadow: 0 0 20px rgba(163, 140, 253, 0.4);
         }
-
-        .avatar-holder img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 3px solid #0c091f;
-        }
-
-        /* Satellite dot orbiting avatar */
+        .avatar-holder img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; border: 3px solid #0c091f; }
         .satellite {
-            position: absolute;
-            width: 12px;
-            height: 12px;
-            background: var(--satellite-glow);
-            border-radius: 50%;
-            top: 15px;
-            left: 15px;
-            box-shadow: 0 0 10px var(--satellite-glow);
-            animation: orbit-dot 8s linear infinite;
-            transform-origin: 55px 55px;
+            position: absolute; width: 12px; height: 12px; background: var(--satellite-glow); border-radius: 50%;
+            top: 15px; left: 15px; box-shadow: 0 0 10px var(--satellite-glow); animation: orbit-dot 8s linear infinite; transform-origin: 55px 55px;
         }
-
-        @keyframes orbit-dot {
-            to { transform: rotate(360deg); }
-        }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
+        @keyframes orbit-dot { to { transform: rotate(360deg); } }
+        @keyframes spin { to { transform: rotate(360deg); } }
         .profile-name {
-            font-size: 1.5rem;
-            margin-bottom: 6px;
-            background: linear-gradient(to right, #fff, var(--pastel-pink));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: 1.5rem; margin-bottom: 6px; background: linear-gradient(to right, #fff, var(--pastel-pink));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
+        .profile-tag { font-size: 0.8rem; color: var(--pastel-green); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 15px; }
+        .profile-bio { font-size: 0.88rem; line-height: 1.6; color: var(--text-sub); margin-bottom: 20px; }
+        .panel-block { text-align: left; width: 100%; margin-top: 15px; }
+        .panel-block h4 { font-family: var(--font-title); font-size: 0.95rem; color: #fff; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+        .panel-block h4 i { color: var(--pastel-yellow); }
+        .panel-block ul { list-style: none; padding-left: 5px; }
+        .panel-block li { font-size: 0.85rem; line-height: 1.6; color: var(--text-sub); position: relative; padding-left: 15px; margin-bottom: 8px; }
+        .panel-block li::before { content: '✦'; position: absolute; left: 0; color: var(--pastel-pink); font-size: 0.7rem; }
+        .content-display { opacity: 0; transform: translateY(20px); transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1); display: none; height: 100%; }
+        .content-display.active-fade { display: flex; flex-direction: column; opacity: 1; transform: translateY(0); }
+        .content-header { margin-bottom: 15px; }
+        .german-tag { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 3px; color: var(--pastel-pink); display: block; margin-bottom: 5px; font-weight: bold; }
+        .task-title { font-size: 1.35rem; line-height: 1.3; color: #fff; }
+        .task-scrollable-body { flex-grow: 1; font-size: 0.88rem; line-height: 1.65; color: var(--text-sub); }
+        .task-scrollable-body h4 { color: #fff; margin: 15px 0 8px; font-family: var(--font-title); font-size: 0.95rem; display: flex; align-items: center; gap: 8px; }
+        .task-scrollable-body h4 i { color: var(--pastel-yellow); }
+        .task-scrollable-body ul { list-style-type: none; padding-left: 5px; }
+        .task-scrollable-body li { position: relative; padding-left: 15px; margin-bottom: 6px; }
+        .task-scrollable-body li::before { content: '✦'; position: absolute; left: 0; color: var(--pastel-pink); font-size: 0.7rem; }
+        .widget-box { background: rgba(255, 255, 255, 0.04); border: 1px solid var(--glass-border); border-radius: 16px; padding: 15px; margin-top: 15px; font-size: 0.82rem; backdrop-filter: blur(5px); }
+        .exp-path { background: rgba(0,0,0,0.3); padding: 4px 8px; border-radius: 6px; font-family: monospace; color: var(--pastel-green); margin-bottom: 10px; }
+        .exp-tree { margin-bottom: 10px; font-family: monospace; line-height: 1.5; }
+        .exp-btn-group { display: flex; gap: 6px; flex-wrap: wrap; }
+        .exp-btn { background: rgba(255,255,255,0.06); border: 1px solid var(--glass-border); color: #fff; padding: 4px 10px; border-radius: 6px; cursor: pointer; font-size: 0.75rem; transition: all 0.3s ease; }
+        .exp-btn:hover { background: var(--accent-purple); border-color: var(--pastel-pink); }
+        .source-selector { display: flex; gap: 5px; overflow-x: auto; padding-bottom: 8px; margin-bottom: 10px; }
+        .src-btn { background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); color: var(--text-sub); padding: 4px 8px; border-radius: 20px; cursor: pointer; font-size: 0.7rem; white-space: nowrap; transition: all 0.3s ease; }
+        .src-btn.active, .src-btn:hover { background: var(--accent-purple); color: #fff; border-color: var(--pastel-pink); }
+        .gauge-container { display: flex; align-items: center; gap: 15px; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 10px; }
+        .gauge-circle { width: 45px; height: 45px; border-radius: 50%; border: 4px solid var(--pastel-pink); display: flex; align-items: center; justify-content: center; font-weight: bold; font-family: var(--font-title); color: var(--pastel-yellow); box-shadow: 0 0 10px var(--pastel-pink); flex-shrink: 0; }
+        .references-scroller { background: rgba(0, 0, 0, 0.4); border: 1px solid var(--glass-border); border-radius: 12px; height: 120px; overflow-y: auto; padding: 10px; margin-top: 10px; font-family: var(--font-body); font-size: 0.75rem; line-height: 1.5; }
+        .references-scroller::-webkit-scrollbar { width: 4px; }
+        .references-scroller::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.15); border-radius: 4px; }
+        .ref-item { margin-bottom: 8px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding-bottom: 6px; }
+        .ref-item:last-child { border-bottom: none; padding-bottom: 0; }
+        .prompt-tabs { display: flex; background: rgba(0,0,0,0.3); border-radius: 8px; padding: 3px; margin-bottom: 10px; }
+        .pr-tab { flex: 1; text-align: center; padding: 5px; cursor: pointer; border-radius: 6px; font-size: 0.75rem; transition: all 0.3s ease; }
+        .pr-tab.active { background: rgba(255,255,255,0.1); font-weight: bold; color: var(--pastel-pink); }
+        .prompt-chat-demo { background: rgba(0,0,0,0.2); border-radius: 8px; padding: 10px; font-size: 0.78rem; min-height: 90px; border-left: 2px solid var(--accent-purple); }
+        .collab-tabs { display: flex; gap: 6px; margin-bottom: 10px; }
+        .cl-tab { flex: 1; padding: 4px; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); text-align: center; cursor: pointer; border-radius: 8px; font-size: 0.72rem; transition: all 0.3s ease; }
+        .cl-tab.active { background: var(--accent-purple); color: #fff; border-color: var(--pastel-green); }
+        .collab-screen { background: rgba(0,0,0,0.3); border-radius: 10px; padding: 10px; min-height: 80px; font-family: monospace; border: 1px solid rgba(255,255,255,0.05); }
+        .canvas-breakdown { display: flex; justify-content: space-around; text-align: center; margin-top: 10px; }
+        .breakdown-circle { width: 90px; height: 90px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 3px double var(--pastel-green); background: rgba(0,0,0,0.2); }
+        .breakdown-circle.ai { border-color: var(--pastel-pink); }
+        .breakdown-circle span { font-family: var(--font-title); font-weight: 700; font-size: 1rem; color: #fff; }
+        .oath-dial { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
+        .oath-badge { background: rgba(255,255,255,0.04); border: 1px solid var(--glass-border); padding: 5px 12px; border-radius: 30px; cursor: pointer; font-size: 0.72rem; transition: all 0.3s ease; }
+        .oath-badge:hover, .oath-badge.active { background: linear-gradient(135deg, var(--pastel-pink), var(--accent-purple)); color: #fff; box-shadow: 0 0 10px var(--accent-purple); border-color: transparent; }
+        .space-map-panel { position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; background: transparent; padding-bottom: 110px; }
+        .constellation-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 2; }
+        .constellation-svg line { stroke: rgba(163, 140, 253, 0.25); stroke-width: 1.5; stroke-dasharray: 6, 6; transition: stroke 0.5s, stroke-width 0.5s; animation: constellation-flow 4s linear infinite; }
+        @keyframes constellation-flow { 0% { stroke-dashoffset: 24; } 100% { stroke-dashoffset: 0; } }
+        .constellation-svg line.active-line { stroke: var(--pastel-pink); stroke-width: 2.5; stroke-dasharray: none; filter: drop-shadow(0 0 8px var(--pastel-pink)); animation: line-glow 1.5s ease-in-out infinite alternate; }
+        @keyframes line-glow { from { filter: drop-shadow(0 0 4px var(--pastel-pink)); } to { filter: drop-shadow(0 0 10px var(--pastel-pink)); } }
+        .star-node { position: absolute; z-index: 5; cursor: pointer; transform: translate(-50%, -50%); transition: all 0.3s ease; }
+        .star-core { width: 20px; height: 20px; background: #fff; border-radius: 50%; border: 4px solid var(--accent-purple); box-shadow: 0 0 15px var(--accent-purple), 0 0 30px var(--accent-purple); transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative; }
+        .star-core::after { content: ''; position: absolute; top: -10px; left: -10px; right: -10px; bottom: -10px; border: 1px solid rgba(255,255,255,0.2); border-radius: 50%; transform: scale(1); opacity: 1; transition: all 0.5s ease; }
+        .star-label { position: absolute; top: 25px; left: 50%; transform: translateX(-50%); background: rgba(12, 8, 34, 0.85); border: 1px solid var(--glass-border); padding: 5px 12px; border-radius: 12px; font-size: 0.75rem; white-space: nowrap; color: var(--text-sub); backdrop-filter: blur(5px); transition: all 0.3s ease; pointer-events: none; }
+        .star-node:hover .star-core { transform: scale(1.4); border-color: var(--pastel-pink); box-shadow: 0 0 25px var(--pastel-pink), 0 0 50px var(--pastel-pink); }
+        .star-node:hover .star-core::after { transform: scale(1.6); opacity: 0; border-color: var(--pastel-pink); }
+        .star-node:hover .star-label { color: #fff; border-color: rgba(255,255,255,0.2); box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+        .star-node.selected-node .star-core { transform: scale(1.5); background: var(--pastel-yellow); border-color: var(--pastel-pink); box-shadow: 0 0 30px var(--pastel-pink), 0 0 60px var(--pastel-pink); }
+        .star-node.selected-node .star-label { color: var(--pastel-yellow); border-color: var(--pastel-yellow); }
+        .star-node.dock-preview .star-core { transform: scale(1.3); border-color: var(--pastel-green); box-shadow: 0 0 20px var(--pastel-pink), 0 0 35px var(--pastel-green); }
+        .star-node.dock-preview .star-label { color: #fff; border-color: var(--pastel-pink); }
+        .sn-1 { left: 15%; top: 22%; }
+        .sn-2 { left: 45%; top: 15%; }
+        .sn-3 { left: 32%; top: 44%; }
+        .sn-4 { left: 65%; top: 35%; }
+        .sn-5 { left: 50%; top: 68%; }
+        .sn-6 { left: 82%; top: 58%; }
 
-        .profile-tag {
-            font-size: 0.8rem;
-            color: var(--pastel-green);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 15px;
-        }
-
-        .profile-bio {
-            font-size: 0.88rem;
-            line-height: 1.6;
-            color: var(--text-sub);
-            margin-bottom: 20px;
-        }
-
-        /* Interactive block styling */
-        .panel-block {
-            text-align: left;
-            width: 100%;
-            margin-top: 15px;
-        }
-
-        .panel-block h4 {
-            font-family: var(--font-title);
-            font-size: 0.95rem;
-            color: #fff;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .panel-block h4 i {
-            color: var(--pastel-yellow);
-        }
-
-        .panel-block ul {
-            list-style: none;
-            padding-left: 5px;
-        }
-
-        .panel-block li {
-            font-size: 0.85rem;
-            line-height: 1.6;
-            color: var(--text-sub);
-            position: relative;
-            padding-left: 15px;
-            margin-bottom: 8px;
-        }
-
-        .panel-block li::before {
-            content: '✦';
+        /* Navigation Dock — kiểu iOS: nổi phía trên nội dung, không che, phóng to icon khi rê chuột */
+        .navigation-dock {
             position: absolute;
-            left: 0;
-            color: var(--pastel-pink);
-            font-size: 0.7rem;
-        }
-
-        /* Dynamic Morphing Area */
-        .content-display {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
-            display: none;
-            height: 100%;
-        }
-
-        .content-display.active-fade {
-            display: flex;
-            flex-direction: column;
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .content-header {
-            margin-bottom: 15px;
-        }
-
-        .german-tag {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            color: var(--pastel-pink);
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-
-        .task-title {
-            font-size: 1.35rem;
-            line-height: 1.3;
-            color: #fff;
-        }
-
-        .task-scrollable-body {
-            flex-grow: 1;
-            font-size: 0.88rem;
-            line-height: 1.65;
-            color: var(--text-sub);
-        }
-
-        .task-scrollable-body h4 {
-            color: #fff;
-            margin: 15px 0 8px;
-            font-family: var(--font-title);
-            font-size: 0.95rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .task-scrollable-body h4 i {
-            color: var(--pastel-yellow);
-        }
-
-        .task-scrollable-body ul {
-            list-style-type: none;
-            padding-left: 5px;
-        }
-
-        .task-scrollable-body li {
-            position: relative;
-            padding-left: 15px;
-            margin-bottom: 6px;
-        }
-
-        .task-scrollable-body li::before {
-            content: '✦';
-            position: absolute;
-            left: 0;
-            color: var(--pastel-pink);
-            font-size: 0.7rem;
-        }
-
-        /* --- 6 INTERACTIVE WIDGETS STYLING --- */
-        .widget-box {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            padding: 15px;
-            margin-top: 15px;
-            font-size: 0.82rem;
-            backdrop-filter: blur(5px);
-        }
-
-        /* Widget 1: Explorer Demo */
-        .exp-path {
-            background: rgba(0,0,0,0.3);
-            padding: 4px 8px;
-            border-radius: 6px;
-            font-family: monospace;
-            color: var(--pastel-green);
-            margin-bottom: 10px;
-        }
-        .exp-tree {
-            margin-bottom: 10px;
-            font-family: monospace;
-            line-height: 1.5;
-        }
-        .exp-btn-group {
-            display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
-        }
-        .exp-btn {
-            background: rgba(255,255,255,0.06);
-            border: 1px solid var(--glass-border);
-            color: #fff;
-            padding: 4px 10px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.75rem;
-            transition: all 0.3s ease;
-        }
-        .exp-btn:hover {
-            background: var(--accent-purple);
-            border-color: var(--pastel-pink);
-        }
-
-        /* Widget 2: Source Grader */
-        .source-selector {
-            display: flex;
-            gap: 5px;
-            overflow-x: auto;
-            padding-bottom: 8px;
-            margin-bottom: 10px;
-        }
-        .src-btn {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid var(--glass-border);
-            color: var(--text-sub);
-            padding: 4px 8px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.7rem;
-            white-space: nowrap;
-            transition: all 0.3s ease;
-        }
-        .src-btn.active, .src-btn:hover {
-            background: var(--accent-purple);
-            color: #fff;
-            border-color: var(--pastel-pink);
-        }
-        .gauge-container {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            background: rgba(0,0,0,0.2);
-            padding: 10px;
-            border-radius: 10px;
-        }
-        .gauge-circle {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            border: 4px solid var(--pastel-pink);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-family: var(--font-title);
-            color: var(--pastel-yellow);
-            box-shadow: 0 0 10px var(--pastel-pink);
-            flex-shrink: 0;
-        }
-
-        /* Styled References box for Task 2 */
-        .references-scroller {
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid var(--glass-border);
-            border-radius: 12px;
-            height: 120px;
-            overflow-y: auto;
-            padding: 10px;
-            margin-top: 10px;
-            font-family: var(--font-body);
-            font-size: 0.75rem;
-            line-height: 1.5;
-        }
-        .references-scroller::-webkit-scrollbar {
-            width: 4px;
-        }
-        .references-scroller::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.15);
-            border-radius: 4px;
-        }
-        .ref-item {
-            margin-bottom: 8px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            padding-bottom: 6px;
-        }
-        .ref-item:last-child {
-            border-bottom: none;
-            padding-bottom: 0;
-        }
-
-        /* Widget 3: Prompt Swapper */
-        .prompt-tabs {
-            display: flex;
-            background: rgba(0,0,0,0.3);
-            border-radius: 8px;
-            padding: 3px;
-            margin-bottom: 10px;
-        }
-        .pr-tab {
-            flex: 1;
-            text-align: center;
-            padding: 5px;
-            cursor: pointer;
-            border-radius: 6px;
-            font-size: 0.75rem;
-            transition: all 0.3s ease;
-        }
-        .pr-tab.active {
-            background: rgba(255,255,255,0.1);
-            font-weight: bold;
-            color: var(--pastel-pink);
-        }
-        .prompt-chat-demo {
-            background: rgba(0,0,0,0.2);
-            border-radius: 8px;
-            padding: 10px;
-            font-size: 0.78rem;
-            min-height: 90px;
-            border-left: 2px solid var(--accent-purple);
-        }
-
-        /* Widget 4: Collaboration Hub */
-        .collab-tabs {
-            display: flex;
-            gap: 6px;
-            margin-bottom: 10px;
-        }
-        .cl-tab {
-            flex: 1;
-            padding: 4px;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid var(--glass-border);
-            text-align: center;
-            cursor: pointer;
-            border-radius: 8px;
-            font-size: 0.72rem;
-            transition: all 0.3s ease;
-        }
-        .cl-tab.active {
-            background: var(--accent-purple);
-            color: #fff;
-            border-color: var(--pastel-green);
-        }
-        .collab-screen {
-            background: rgba(0,0,0,0.3);
-            border-radius: 10px;
-            padding: 10px;
-            min-height: 80px;
-            font-family: monospace;
-            border: 1px solid rgba(255,255,255,0.05);
-        }
-
-        /* Widget 5: AI Percentage Radar */
-        .canvas-breakdown {
-            display: flex;
-            justify-content: space-around;
-            text-align: center;
-            margin-top: 10px;
-        }
-        .breakdown-circle {
-            width: 90px;
-            height: 90px;
-            border-radius: 50%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            border: 3px double var(--pastel-green);
-            background: rgba(0,0,0,0.2);
-        }
-        .breakdown-circle.ai {
-            border-color: var(--pastel-pink);
-        }
-        .breakdown-circle span {
-            font-family: var(--font-title);
-            font-weight: 700;
-            font-size: 1rem;
-            color: #fff;
-        }
-
-        /* Widget 6: Ethical Oath */
-        .oath-dial {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            justify-content: center;
-        }
-        .oath-badge {
-            background: rgba(255,255,255,0.04);
-            border: 1px solid var(--glass-border);
-            padding: 5px 12px;
-            border-radius: 30px;
-            cursor: pointer;
-            font-size: 0.72rem;
-            transition: all 0.3s ease;
-        }
-        .oath-badge:hover, .oath-badge.active {
-            background: linear-gradient(135deg, var(--pastel-pink), var(--accent-purple));
-            color: #fff;
-            box-shadow: 0 0 10px var(--accent-purple);
-            border-color: transparent;
-        }
-
-        /* RIGHT COLUMN: The Interactive Constellation Map */
-        .space-map-panel {
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: transparent;
-        }
-
-        /* SVG Constellation lines with Flow Pulse Animation */
-        .constellation-svg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 2;
-        }
-
-        .constellation-svg line {
-            stroke: rgba(163, 140, 253, 0.25);
-            stroke-width: 1.5;
-            stroke-dasharray: 6, 6;
-            transition: stroke 0.5s, stroke-width 0.5s;
-            animation: constellation-flow 4s linear infinite;
-        }
-
-        @keyframes constellation-flow {
-            0% { stroke-dashoffset: 24; }
-            100% { stroke-dashoffset: 0; }
-        }
-
-        .constellation-svg line.active-line {
-            stroke: var(--pastel-pink);
-            stroke-width: 2.5;
-            stroke-dasharray: none;
-            filter: drop-shadow(0 0 8px var(--pastel-pink));
-            animation: line-glow 1.5s ease-in-out infinite alternate;
-        }
-
-        @keyframes line-glow {
-            from { filter: drop-shadow(0 0 4px var(--pastel-pink)); }
-            to { filter: drop-shadow(0 0 10px var(--pastel-pink)); }
-        }
-
-        /* Glowing Star Nodes (The Projects) */
-        .star-node {
-            position: absolute;
-            z-index: 5;
-            cursor: pointer;
-            transform: translate(-50%, -50%);
-            transition: all 0.3s ease;
-        }
-
-        .star-core {
-            width: 20px;
-            height: 20px;
-            background: #fff;
-            border-radius: 50%;
-            border: 4px solid var(--accent-purple);
-            box-shadow: 0 0 15px var(--accent-purple), 0 0 30px var(--accent-purple);
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-        }
-
-        /* Floating ring around node */
-        .star-core::after {
-            content: '';
-            position: absolute;
-            top: -10px; left: -10px; right: -10px; bottom: -10px;
-            border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 50%;
-            transform: scale(1);
-            opacity: 1;
-            transition: all 0.5s ease;
-        }
-
-        /* Node label tag */
-        .star-label {
-            position: absolute;
-            top: 25px;
+            bottom: 22px;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(12, 8, 34, 0.85);
+            background: rgba(18, 14, 43, 0.55);
             border: 1px solid var(--glass-border);
-            padding: 5px 12px;
-            border-radius: 12px;
-            font-size: 0.75rem;
-            white-space: nowrap;
+            padding: 10px 18px;
+            border-radius: 26px;
+            display: flex;
+            align-items: flex-end;
+            gap: 14px;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 100;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+        }
+        .dock-item {
             color: var(--text-sub);
-            backdrop-filter: blur(5px);
-            transition: all 0.3s ease;
-            pointer-events: none;
+            font-size: 1rem;
+            cursor: pointer;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            transform-origin: bottom center;
+            transition: transform 0.16s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+            will-change: transform;
         }
-
-        /* Star hover states */
-        .star-node:hover .star-core {
-            transform: scale(1.4);
-            border-color: var(--pastel-pink);
-            box-shadow: 0 0 25px var(--pastel-pink), 0 0 50px var(--pastel-pink);
-        }
-
-        .star-node:hover .star-core::after {
-            transform: scale(1.6);
-            opacity: 0;
-            border-color: var(--pastel-pink);
-        }
-
-        .star-node:hover .star-label {
+        .dock-item:hover, .dock-item.dock-hover {
             color: #fff;
-            border-color: rgba(255,255,255,0.2);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            background: rgba(255,255,255,0.08);
+            box-shadow: 0 0 15px rgba(255,255,255,0.05);
         }
-
-        /* Star active/selected state */
-        .star-node.selected-node .star-core {
-            transform: scale(1.5);
-            background: var(--pastel-yellow);
-            border-color: var(--pastel-pink);
-            box-shadow: 0 0 30px var(--pastel-pink), 0 0 60px var(--pastel-pink);
-        }
-
-        .star-node.selected-node .star-label {
-            color: var(--pastel-yellow);
-            border-color: var(--pastel-yellow);
-        }
-        .star-node.dock-preview .star-core {
-            transform: scale(1.3);
-            border-color: var(--pastel-green);
-            box-shadow: 0 0 20px var(--pastel-pink), 0 0 35px var(--pastel-green);
-        }
-        .star-node.dock-preview .star-label {
-            color: #fff;
-            border-color: var(--pastel-pink);
-}
-        /* SVG constellations node coordinates */
-        .sn-1 { left: 15%; top: 25%; }
-        .sn-2 { left: 45%; top: 18%; }
-        .sn-3 { left: 32%; top: 50%; }
-        .sn-4 { left: 65%; top: 40%; }
-        .sn-5 { left: 50%; top: 78%; }
-        .sn-6 { left: 82%; top: 70%; }
-
-        /* Navigation Dock at Bottom (Minimal & Floating) */
-        /* Navigation Dock - iOS style translucent */
-.navigation-dock {
-    position: absolute;
-    bottom: 24px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    padding: 10px 22px;
-    border-radius: 28px;
-    display: flex;
-    align-items: center;
-    gap: 18px;
-    backdrop-filter: blur(25px) saturate(180%);
-    -webkit-backdrop-filter: blur(25px) saturate(180%);
-    z-index: 100;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-}
-
-.dock-item {
-    color: var(--text-sub);
-    font-size: 1rem;
-    cursor: pointer;
-    transition: all 0.25s ease;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-}
-
-.dock-item:hover {
-    color: #fff;
-    background: rgba(255,255,255,0.12);
-}
-.dock-item.active {
-    color: var(--satellite-glow);
-    background: rgba(255,255,255,0.14);
-}
-        /* Tooltip for dock */
+        .dock-item.active { color: var(--satellite-glow); background: rgba(251, 253, 198, 0.12); box-shadow: 0 0 15px var(--satellite-glow); }
         .dock-item::before {
             content: attr(data-tooltip);
             position: absolute;
-            bottom: 55px;
+            bottom: 58px;
             left: 50%;
-            transform: translateX(-50%) translateY(10px);
+            transform: translateX(-50%) translateY(10px) scale(1);
             background: rgba(12, 8, 34, 0.9);
             border: 1px solid var(--glass-border);
             padding: 5px 12px;
@@ -782,114 +206,43 @@
             white-space: nowrap;
             opacity: 0;
             visibility: hidden;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             pointer-events: none;
         }
-
-        .dock-item:hover::before {
-            opacity: 1;
-            visibility: visible;
-            transform: translateX(-50%) translateY(0);
-        }
-
-        /* Specialty button: Moon Drive */
-        .moon-drive-btn {
-            background: linear-gradient(135deg, var(--pastel-pink), var(--accent-purple));
-            color: #fff !important;
-            box-shadow: 0 0 15px var(--accent-purple);
-        }
-
-        .moon-drive-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 25px var(--pastel-pink);
-        }
-
-        /* Particle effect cursor trail */
-        .cursor-glow {
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            background: var(--pastel-pink);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 99999;
-            transform: translate(-50%, -50%);
-            animation: trail-fade 0.8s forwards;
-        }
-
-        @keyframes trail-fade {
-            0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-            100% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
-        }
-
-        /* Star Sparkle decorative item */
-        .sparkle-icon {
-            color: var(--pastel-yellow);
-            animation: pulse 1.5s infinite alternate;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(0.9); opacity: 0.6; }
-            100% { transform: scale(1.2); opacity: 1; }
-        }
-
-        /* Responsive scaling */
+        .dock-item:hover::before { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0) scale(1); }
+        .moon-drive-btn { background: linear-gradient(135deg, var(--pastel-pink), var(--accent-purple)); color: #fff !important; box-shadow: 0 0 15px var(--accent-purple); }
+        .cursor-glow { position: absolute; width: 8px; height: 8px; background: var(--pastel-pink); border-radius: 50%; pointer-events: none; z-index: 99999; transform: translate(-50%, -50%); animation: trail-fade 0.8s forwards; }
+        @keyframes trail-fade { 0% { transform: translate(-50%, -50%) scale(1); opacity: 1; } 100% { transform: translate(-50%, -50%) scale(0); opacity: 0; } }
+        .sparkle-icon { color: var(--pastel-yellow); animation: pulse 1.5s infinite alternate; }
+        @keyframes pulse { 0% { transform: scale(0.9); opacity: 0.6; } 100% { transform: scale(1.2); opacity: 1; } }
         @media (max-width: 1024px) {
-            .universe-container {
-                grid-template-columns: 1fr;
-                grid-template-rows: 1fr 1fr;
-                height: 95vh;
-            }
-            .mirror-panel {
-                border-right: none;
-                border-bottom: none;
-                padding: 25px 0 0 0;
-            }
-            .space-map-panel {
-                min-height: 350px;
-            }
-            .navigation-dock {
-                bottom: 15px;
-                padding: 5px 15px;
-                gap: 12px;
-            }
+            .universe-container { grid-template-columns: 1fr; grid-template-rows: 1fr 1fr; height: 95vh; }
+            .mirror-panel { border-right: none; border-bottom: none; padding: 25px 0 100px 0; }
+            .space-map-panel { min-height: 350px; padding-bottom: 90px; }
+            .navigation-dock { bottom: 12px; padding: 6px 12px; gap: 8px; }
+            .dock-item { width: 36px; height: 36px; }
         }
     </style>
 </head>
 <body>
-
-    <!-- Floating stardust backdrop canvas (renders behind everything) -->
     <div id="space-canvas"></div>
-
     <div class="universe-container">
-        
-        <!-- LEFT PANEL: Dynamic Content mirror -->
         <div class="mirror-panel">
-            
-            <!-- Minimalistic Tab Navigation Inside Left Mirror -->
             <div class="mirror-tabs" id="profile-tabs">
                 <button class="mirror-tab-btn active" id="tab-intro" onclick="switchProfileTab('intro')">Vũ trụ của mình</button>
                 <button class="mirror-tab-btn" id="tab-reflection" onclick="switchProfileTab('reflection')">Chiêm nghiệm chung</button>
             </div>
-
-            <!-- TAB 1: Profile & Intro View -->
             <div class="profile-section" id="profile-view">
                 <div class="avatar-orbit">
-                    <div class="avatar-holder">
-                        <img src="Hình 1.jpg" alt="Vân Anh">
-                    </div>
+                    <div class="avatar-holder"><img src="Hình 1.jpg" alt="Vân Anh"></div>
                     <div class="satellite"></div>
                 </div>
                 <h2 class="profile-name">Phạm Đỗ Vân Anh</h2>
                 <div class="profile-tag">Khoa Ngôn ngữ & Văn hoá Đức</div>
-                <p class="profile-bio">
-                    Chào mừng bạn đến với dải ngân hà của mình! Đây không chỉ là nơi lưu trữ các bài tập kỹ năng số thông thường, mà là hành trình mình tìm kiếm sự giao thoa hài hòa giữa vẻ đẹp lãng mạn của ngôn ngữ Đức và sức mạnh biến đổi vĩ đại của Trí tuệ nhân tạo. Nhấp vào các chòm sao lấp lánh bên phải để cùng khám phá nhé!
-                </p>
+                <p class="profile-bio">Chào mừng bạn đến với dải ngân hà của mình! Đây không chỉ là nơi lưu trữ các bài tập kỹ năng số thông thường, mà là hành trình mình tìm kiếm sự giao thoa hài hòa giữa vẻ đẹp lãng mạn của ngôn ngữ Đức và sức mạnh biến đổi vĩ đại của Trí tuệ nhân tạo. Nhấp vào các chòm sao lấp lánh bên phải để cùng khám phá nhé!</p>
                 <div class="panel-block">
                     <h4><i class="fa-solid fa-crosshairs"></i> Mục tiêu Portfolio</h4>
-                    <p style="font-size: 0.82rem; line-height: 1.6; color: var(--text-sub); margin-bottom: 10px;">
-                        Thiết lập không gian số này, mình đặt ra những mục tiêu rõ rệt cho bản thân:
-                    </p>
+                    <p style="font-size: 0.82rem; line-height: 1.6; color: var(--text-sub); margin-bottom: 10px;">Thiết lập không gian số này, mình đặt ra những mục tiêu rõ rệt cho bản thân:</p>
                     <ul>
                         <li><strong>Hệ thống hóa bài học:</strong> Kết nối chặt chẽ 6 khối kiến thức nền tảng trong học phần Công nghệ số và AI thành một chỉnh thể logic thống nhất.</li>
                         <li><strong>Minh chứng năng lực số:</strong> Trình bày rõ nét tiến trình phát triển tư duy làm chủ công cụ và phối tác đồng hành cùng AI tạo sinh.</li>
@@ -900,31 +253,17 @@
                     <i class="fa-solid fa-sparkles sparkle-icon"></i> Mã sinh viên: 25041876
                 </div>
             </div>
-
-            <!-- TAB 2: Overall Reflection View (Thuận lợi, Khó khăn, Bài học) -->
             <div class="profile-section" id="profile-reflection" style="display: none; opacity: 0; text-align: left;">
                 <h3 style="font-family: var(--font-title); font-size: 1.2rem; color: var(--pastel-pink); margin-bottom: 15px; text-align: center; width:100%;">Nhìn lại hành trình</h3>
                 <div class="panel-block" style="margin-top: 0;">
                     <h4><i class="fa-solid fa-circle-check" style="color: var(--pastel-green);"></i> Thuận lợi gặt hái</h4>
-                    <p style="font-size: 0.82rem; line-height: 1.6; color: var(--text-sub); margin-bottom: 12px;">
-                        Việc sở hữu tư duy ngôn ngữ Đức logic, chặt chẽ là bệ phóng hoàn hảo giúp mình nhanh chóng nắm bắt bản chất của "Prompt Engineering" (Kỹ thuật đặt câu lệnh). Bên cạnh đó, dải tài nguyên bài giảng phong phú của học phần cùng sự hỗ trợ mạnh mẽ từ các AI tạo sinh tối tân (ChatGPT, DALL-E) đã giúp mình bay bổng tối đa sức sáng tạo.
-                    </p>
-
+                    <p style="font-size: 0.82rem; line-height: 1.6; color: var(--text-sub); margin-bottom: 12px;">Việc sở hữu tư duy ngôn ngữ Đức logic, chặt chẽ là bệ phóng hoàn hảo giúp mình nhanh chóng nắm bắt bản chất của "Prompt Engineering" (Kỹ thuật đặt câu lệnh). Bên cạnh đó, dải tài nguyên bài giảng phong phú của học phần cùng sự hỗ trợ mạnh mẽ từ các AI tạo sinh tối tân (ChatGPT, DALL-E) đã giúp mình bay bổng tối đa sức sáng tạo.</p>
                     <h4><i class="fa-solid fa-triangle-exclamation" style="color: var(--pastel-pink);"></i> Khó khăn đối mặt</h4>
-                    <p style="font-size: 0.82rem; line-height: 1.6; color: var(--text-sub); margin-bottom: 12px;">
-                        Giai đoạn đầu bước chân vào thế giới kỹ thuật số, mình có chút bỡ ngỡ và ngợp trước khối lượng công cụ khổng lồ. Đồng thời, "bẫy ảo giác" (AI Hallucination) đôi khi đưa ra những thông tin mơ hồ hoặc thiếu chính xác, đòi hỏi mình phải dành nhiều thời gian để đối chiếu, kiểm chứng nghiêm ngặt.
-                    </p>
-
+                    <p style="font-size: 0.82rem; line-height: 1.6; color: var(--text-sub); margin-bottom: 12px;">Giai đoạn đầu bước chân vào thế giới kỹ thuật số, mình có chút bỡ ngỡ và ngợp trước khối lượng công cụ khổng lồ. Đồng thời, "bẫy ảo giác" (AI Hallucination) đôi khi đưa ra những thông tin mơ hồ hoặc thiếu chính xác, đòi hỏi mình phải dành nhiều thời gian để đối chiếu, kiểm chứng nghiêm ngặt.</p>
                     <h4><i class="fa-solid fa-lightbulb" style="color: var(--pastel-yellow);"></i> Bài học xương máu</h4>
-                    <p style="font-size: 0.82rem; line-height: 1.6; color: var(--text-sub);">
-                        "Công nghệ chỉ là cánh tay nối dài, bộ óc con người mới chính là bánh lái." Bài học lớn nhất mình đúc kết được không nằm ở việc sử dụng thành thạo bao nhiêu phần mềm, mà là năng lực tư duy phản biện, cách đặt câu hỏi định hướng sắc sảo để sàng lọc tinh hoa tri thức và làm chủ AI một cách có đạo đức.
-                    </p>
+                    <p style="font-size: 0.82rem; line-height: 1.6; color: var(--text-sub);">"Công nghệ chỉ là cánh tay nối dài, bộ óc con người mới chính là bánh lái." Bài học lớn nhất mình đúc kết được không nằm ở việc sử dụng thành thạo bao nhiêu phần mềm, mà là năng lực tư duy phản biện, cách đặt câu hỏi định hướng sắc sảo để sàng lọc tinh hoa tri thức và làm chủ AI một cách có đạo đức.</p>
                 </div>
             </div>
-
-            <!-- Dynamic Task Display Areas (SỬA LỖI HIỂN THỊ CHỒNG CHÉO BẰNG CHUYỂN TRẠNG THÁI EXPLICIT JS) -->
-            
-            <!-- Task 1 Content (BẢO TOÀN TRỌN VẸN 12 BƯỚC THỰC HÀNH CỦA BÀI 1) -->
             <div class="content-display" id="task1-view">
                 <div class="content-header">
                     <span class="german-tag">01 / Der Anfang (Khởi đầu)</span>
@@ -933,7 +272,6 @@
                 <div class="task-scrollable-body">
                     <h4><i class="fa-solid fa-star"></i> Ý tưởng hành trình</h4>
                     <p>Mọi hành trình vĩ đại đều bắt đầu từ cấu trúc nguyên bản. Việc quản trị và sắp xếp tệp tin khoa học trên hệ điều hành đóng vai trò nền tảng, giúp mình tổ chức tài liệu dịch thuật và âm thanh tiếng Đức một cách tối ưu, ngăn nắp nhất.</p>
-                    
                     <h4><i class="fa-solid fa-list-ol"></i> Nhật ký thực hiện (12 Bước Chuẩn hóa)</h4>
                     <div style="font-size:0.8rem; line-height:1.5; color:var(--text-sub); max-height:130px; overflow-y:auto; padding-right:5px; border-left:2px solid var(--pastel-pink); padding-left:8px; margin:8px 0;">
                         1. <strong>Mở File Explorer:</strong> Nhấn Windows + E hoặc nhấp vào biểu tượng thư mục màu vàng trên thanh tác vụ.<br>
@@ -949,14 +287,9 @@
                         11. <strong>Xóa vĩnh viễn:</strong> Chọn tệp <code>DiChuyen.txt</code> trong thư mục <code>TaiLieu</code>, nhấn giữ phím Shift và nhấn Delete để loại bỏ vĩnh viễn không qua Thùng rác.<br>
                         12. <strong>Khôi phục dữ liệu (Restore):</strong> Nhấp đúp vào biểu tượng Recycle Bin trên màn hình desktop, tìm tệp <code>GhiChuQuanTrong.txt</code> đã xóa, nhấp chuột phải và chọn Restore để đưa tệp về vị trí ban đầu.
                     </div>
-                    
-                    <!-- WIDGET 1: Explorer Simulator (Tương tác bảo toàn) -->
                     <div class="widget-box">
                         <div class="exp-path"><i class="fa-solid fa-desktop"></i> PC &gt; Local Disk (D:) &gt; ThucHanh_PhamDoVanAnh</div>
-                        <div class="exp-tree" id="explorer-tree">
-                            📁 ThucHanh_PhamDoVanAnh<br>
-                            &nbsp;&nbsp;📄 GhiChu.txt (0 KB)
-                        </div>
+                        <div class="exp-tree" id="explorer-tree">📁 ThucHanh_PhamDoVanAnh<br>&nbsp;&nbsp;📄 GhiChu.txt (0 KB)</div>
                         <div class="exp-btn-group">
                             <button class="exp-btn" onclick="interactExplorer('create')">Tạo Folder (B3)</button>
                             <button class="exp-btn" onclick="interactExplorer('rename')">Đổi Tên Tệp (B6)</button>
@@ -966,8 +299,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Task 2 Content (THẨM ĐỊNH CHÍNH XÁC 10 TÀI LIỆU & LIỆT KÊ ĐẦY ĐỦ THAM KHẢO) -->
             <div class="content-display" id="task2-view">
                 <div class="content-header">
                     <span class="german-tag">02 / Die Quelle (Nguồn tin)</span>
@@ -976,8 +307,6 @@
                 <div class="task-scrollable-body">
                     <h4><i class="fa-solid fa-star"></i> Tổng quan khảo sát</h4>
                     <p>Trong chặng này, mình đã khai thác sâu sắc và thẩm định độ uy tín của chính xác <strong>10 tài liệu khoa học học thuật</strong> quốc tế xoay quanh đề tài <em>"Generative AI in Higher Education"</em>.</p>
-                    
-                    <!-- WIDGET 2: Source Grader (Tương tác bảo toàn) -->
                     <div class="widget-box">
                         <div class="source-selector">
                             <span class="src-btn active" onclick="interactSource('tlili', this)">Tlili et al. (2023)</span>
@@ -992,7 +321,6 @@
                             </div>
                         </div>
                     </div>
-
                     <h4><i class="fa-solid fa-book"></i> Danh mục toàn bộ 10 tài liệu tham khảo</h4>
                     <div class="references-scroller">
                         <div class="ref-item">1. Chan, C.K.Y. & Hu, W. (2023). Students' Voices on Generative AI: Perceptions, Benefits, and Challenges in Higher Education. <em>arXiv</em>.</div>
@@ -1008,8 +336,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Task 3 Content -->
             <div class="content-display" id="task3-view">
                 <div class="content-header">
                     <span class="german-tag">03 / Das Echo (Vang vọng)</span>
@@ -1018,7 +344,6 @@
                 <div class="task-scrollable-body">
                     <h4><i class="fa-solid fa-star"></i> Ý tưởng hành trình</h4>
                     <p>ChatGPT sẽ phản hồi vô cùng chuẩn mực và cá nhân hóa nếu ta biết cách gửi đi những câu lệnh có cấu trúc bối cảnh và định hướng rõ ràng.</p>
-                    
                     <h4><i class="fa-solid fa-wand-magic-sparkles"></i> Tiến trình thực hành</h4>
                     <p>Mình tiến hành thử nghiệm so sánh hiệu quả của Prompt cải tiến và Prompt nâng cao trên mô hình ChatGPT qua 3 tác vụ phục vụ học tiếng Đức:</p>
                     <ul>
@@ -1026,8 +351,6 @@
                         <li><strong>Tác vụ 2:</strong> Giải thích khái niệm trừu tượng "Blockchain" bằng việc gán vai giảng viên đại học, yêu cầu dùng phép so sánh dễ hiểu như "cuốn sổ ghi nợ của lớp học" dành cho tân sinh viên chưa có nền tảng.</li>
                         <li><strong>Tác vụ 3:</strong> Tạo lập bộ câu hỏi luyện thi tiếng Đức A1-A2 tự động hóa kèm đáp án phân loại khoa học.</li>
                     </ul>
-                    
-                    <!-- WIDGET 3: Prompt Swapper (Tương tác bảo toàn) -->
                     <div class="widget-box">
                         <div class="prompt-tabs">
                             <div class="pr-tab active" onclick="interactPrompt('basic', this)">Cơ bản</div>
@@ -1041,8 +364,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Task 4 Content -->
             <div class="content-display" id="task4-view">
                 <div class="content-header">
                     <span class="german-tag">04 / Die Harmonie (Đồng điệu)</span>
@@ -1051,7 +372,6 @@
                 <div class="task-scrollable-body">
                     <h4><i class="fa-solid fa-star"></i> Ý tưởng hành trình</h4>
                     <p>Sức mạnh của tập thể được nhân lên gấp bội khi được vận hành trên những nền tảng đồng bộ hóa thời gian thực mượt mà.</p>
-                    
                     <h4><i class="fa-solid fa-wand-magic-sparkles"></i> Tiến trình thực hành</h4>
                     <p>Dưới vai trò <strong>Trưởng nhóm Nhóm 30</strong>, mình đã dẫn dắt cả nhóm vận hành hệ sinh thái cộng tác trực tuyến hiệu quả:</p>
                     <ul>
@@ -1060,22 +380,16 @@
                         <li><strong>Google Docs:</strong> Đồng sáng thảo kịch bản video thời gian thực, quản lý lịch sử chỉnh sửa và theo dõi đóng góp của từng cá nhân qua lịch sử phiên bản.</li>
                         <li><strong>Google Sheets:</strong> Bảng phân công nhiệm vụ trực quan, cập nhật liên tục trạng thái tiến độ để đảm bảo dự án về đích đúng hạn.</li>
                     </ul>
-                    
-                    <!-- WIDGET 4: Collaboration Hub (Tương tác bảo toàn) -->
                     <div class="widget-box">
                         <div class="collab-tabs">
                             <span class="cl-tab active" onclick="interactCollab('zalo', this)">Zalo Chat</span>
                             <span class="cl-tab" onclick="interactCollab('docs', this)">Docs Editor</span>
                             <span class="cl-tab" onclick="interactCollab('sheets', this)">Sheets Plan</span>
                         </div>
-                        <div class="collab-screen" id="collab-screen">
-                            [Nhóm 30] Vân Anh: "Chào các bạn, mình đã up kịch bản thô lên Docs, nhờ các bạn vào sửa đổi nhé!"
-                        </div>
+                        <div class="collab-screen" id="collab-screen">[Nhóm 30] Vân Anh: "Chào các bạn, mình đã up kịch bản thô lên Docs, nhờ các bạn vào sửa đổi nhé!"</div>
                     </div>
                 </div>
             </div>
-
-            <!-- Task 5 Content -->
             <div class="content-display" id="task5-view">
                 <div class="content-header">
                     <span class="german-tag">05 / Die Schöpfung (Sáng tạo)</span>
@@ -1084,7 +398,6 @@
                 <div class="task-scrollable-body">
                     <h4><i class="fa-solid fa-star"></i> Ý tưởng hành trình</h4>
                     <p>Sự kết hợp hoàn hảo giữa năng lực ngôn ngữ của con người và khả năng đồ họa của máy tính để tạo nên những sản phẩm truyền thông giàu tính thẩm mỹ và tri thức.</p>
-                    
                     <h4><i class="fa-solid fa-wand-magic-sparkles"></i> Tiến trình thực hành</h4>
                     <p>Mình đã hiện thực hóa ý tưởng thiết kế Infographic <strong>"AI-POWERED LEARNING"</strong> qua bộ ba công cụ AI tạo sinh:</p>
                     <ul>
@@ -1092,25 +405,15 @@
                         <li><strong>DALL-E:</strong> Tạo hình ảnh độc đáo miêu tả không gian lớp học thông minh với hologram trợ lý AI mộng mơ theo tông màu xanh dương - trắng chủ đạo.</li>
                         <li><strong>Canva AI:</strong> Thiết kế bố cục tổng thể và tinh chỉnh icon mượt mà (thay thế biểu tượng cá voi bằng sách học tập và máy tính để đồng điệu với phong cách giáo dục).</li>
                     </ul>
-                    
-                    <!-- WIDGET 5: AI Percentage Radar (Tương tác bảo toàn) -->
                     <div class="widget-box" style="cursor: pointer;" onclick="interactArt()">
                         <div style="text-align: center; font-weight: bold; margin-bottom: 5px; color: var(--pastel-yellow);">Nhấp để xem tỷ lệ phân rã năng lực chế tác:</div>
                         <div class="canvas-breakdown">
-                            <div class="breakdown-circle ai">
-                                <span id="art-ai">40%</span>
-                                <p style="font-size:0.6rem;">AI tạo sinh</p>
-                            </div>
-                            <div class="breakdown-circle human">
-                                <span id="art-human">60%</span>
-                                <p style="font-size:0.6rem;">Bản thân</p>
-                            </div>
+                            <div class="breakdown-circle ai"><span id="art-ai">40%</span><p style="font-size:0.6rem;">AI tạo sinh</p></div>
+                            <div class="breakdown-circle human"><span id="art-human">60%</span><p style="font-size:0.6rem;">Bản thân</p></div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <!-- Task 6 Content -->
             <div class="content-display" id="task6-view">
                 <div class="content-header">
                     <span class="german-tag">06 / Das Gewissen (Lương tri)</span>
@@ -1119,7 +422,6 @@
                 <div class="task-scrollable-body">
                     <h4><i class="fa-solid fa-star"></i> Ý tưởng hành trình</h4>
                     <p>Đứng trước làn sóng công nghệ vĩ đại, liêm chính học thuật là ranh giới vững chắc nhất bảo vệ giá trị chân thực của người học và danh dự khoa học.</p>
-                    
                     <h4><i class="fa-solid fa-wand-magic-sparkles"></i> Tiến trình thực hành</h4>
                     <p>Mình đã nghiên cứu, đối chiếu và xây dựng bộ nguyên tắc ứng xử văn minh cùng trí tuệ nhân tạo:</p>
                     <ul>
@@ -1128,8 +430,6 @@
                         <li>Thực hành viết bài luận về "Mạng xã hội" kèm việc trích dẫn minh bạch nguồn hỗ trợ của AI.</li>
                         <li>Đúc kết **Bộ nguyên tắc cá nhân 7 điểm** hướng tới việc kiểm chứng, minh bạch thông tin và bảo vệ tư duy phản biện độc lập của bản thân.</li>
                     </ul>
-                    
-                    <!-- WIDGET 6: Ethical Oath (Tương tác bảo toàn) -->
                     <div class="widget-box">
                         <div style="font-weight: bold; margin-bottom: 8px; color: var(--pastel-green);" id="oath-title">Nhấp thắp sáng 4 tuyên thệ cốt lõi:</div>
                         <div class="oath-dial">
@@ -1141,108 +441,63 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Fixed Footer in Mirror -->
             <div style="font-size: 0.75rem; color: var(--text-sub); border-top: 1px solid var(--glass-border); padding-top: 15px; margin-top: 15px; text-align: center;">
                 Phạm Đỗ Vân Anh • Digital Portfolio © 2026
             </div>
         </div>
-
-        <!-- RIGHT PANEL: Constellation Map Grid (Seamless background integration without frames) -->
         <div class="space-map-panel">
-            
-            <!-- SVG Constellation Paths (ĐG ĐƯỢC ĐIỀU CHỈNH CHRONOLOGICAL ORDER: 1 -> 2 -> 3 -> 4 -> 5 -> 6) -->
             <svg class="constellation-svg" id="svg-connections">
-                <line id="l-1" x1="15%" y1="25%" x2="45%" y2="18%" />
-                <line id="l-2" x1="45%" y1="18%" x2="32%" y2="50%" />
-                <line id="l-3" x1="32%" y1="50%" x2="65%" y2="40%" />
-                <line id="l-4" x1="65%" y1="40%" x2="50%" y2="78%" />
-                <line id="l-5" x1="50%" y1="78%" x2="82%" y2="70%" />
+                <line id="l-1" x1="15%" y1="22%" x2="45%" y2="15%" />
+                <line id="l-2" x1="45%" y1="15%" x2="32%" y2="44%" />
+                <line id="l-3" x1="32%" y1="44%" x2="65%" y2="35%" />
+                <line id="l-4" x1="65%" y1="35%" x2="50%" y2="68%" />
+                <line id="l-5" x1="50%" y1="68%" x2="82%" y2="58%" />
             </svg>
-
-            <!-- Star Nodes -->
-            <!-- Node 1 -->
             <div class="star-node sn-1" onclick="selectStar(1, this)" data-lines="1-1">
                 <div class="star-core"></div>
                 <div class="star-label">✦ 01. Quản lý tệp tin</div>
             </div>
-            
-            <!-- Node 2 (Đã điều chỉnh chuẩn 1->2->3->4->5->6) -->
             <div class="star-node sn-2" onclick="selectStar(2, this)" data-lines="l-1 l-2">
                 <div class="star-core"></div>
                 <div class="star-label">✦ 02. Tìm kiếm học thuật</div>
             </div>
-
-            <!-- Node 3 -->
             <div class="star-node sn-3" onclick="selectStar(3, this)" data-lines="l-2 l-3">
                 <div class="star-core"></div>
                 <div class="star-label">✦ 03. Prompt Engineering</div>
             </div>
-
-            <!-- Node 4 -->
             <div class="star-node sn-4" onclick="selectStar(4, this)" data-lines="l-3 l-4">
                 <div class="star-core"></div>
                 <div class="star-label">✦ 04. Hợp tác trực tuyến</div>
             </div>
-
-            <!-- Node 5 -->
             <div class="star-node sn-5" onclick="selectStar(5, this)" data-lines="l-4 l-5">
                 <div class="star-core"></div>
                 <div class="star-label">✦ 05. Sáng tạo với AI</div>
             </div>
-
-            <!-- Node 6 -->
             <div class="star-node sn-6" onclick="selectStar(6, this)" data-lines="l-5">
                 <div class="star-core"></div>
                 <div class="star-label">✦ 06. AI có trách nhiệm</div>
             </div>
-
-            <!-- Floating Title Overlay on Right Panel -->
             <div style="position: absolute; top: 40px; right: 40px; text-align: right; pointer-events: none;">
                 <h1 style="font-family: var(--font-title); font-size: 2.5rem; text-transform: uppercase; letter-spacing: 5px; color: rgba(255,255,255,0.15);">ULIS</h1>
                 <p style="font-size: 0.8rem; letter-spacing: 3px; color: rgba(255,255,255,0.25); margin-top: 5px;">DAS STERNBILD DES WISSENS</p>
             </div>
         </div>
-
-        <!-- Floating Minimal Dock -->
-        <div class="navigation-dock">
-            <div class="dock-item active" id="dock-home" data-tooltip="Thiên hà của mình" onclick="goHome()">
-                <!-- Đã thay đổi thành hình ngôi nhà mộng mơ -->
-                <i class="fa-solid fa-house"></i>
-            </div>
-            <div style="width: 1px; height: 20px; background: rgba(255,255,255,0.15);"></div>
-            <div class="dock-item" data-tooltip="Khởi đầu (Chương 1)" onclick="triggerStarClick(1)">
-                <i class="fa-solid fa-folder"></i>
-            </div>
-            <div class="dock-item" data-tooltip="Nguồn tin (Chương 2)" onclick="triggerStarClick(2)">
-                <i class="fa-solid fa-circle-nodes"></i>
-            </div>
-            <div class="dock-item" data-tooltip="Vang vọng (Chương 3)" onclick="triggerStarClick(3)">
-                <i class="fa-solid fa-wand-sparkles"></i>
-            </div>
-            <div class="dock-item" data-tooltip="Đồng điệu (Chương 4)" onclick="triggerStarClick(4)">
-                <i class="fa-solid fa-user-group"></i>
-            </div>
-            <div class="dock-item" data-tooltip="Sáng tạo (Chương 5)" onclick="triggerStarClick(5)">
-                <i class="fa-solid fa-compass-drafting"></i>
-            </div>
-            <div class="dock-item" data-tooltip="Lương tri (Chương 6)" onclick="triggerStarClick(6)">
-                <i class="fa-solid fa-heart-pulse"></i>
-            </div>
-            <div style="width: 1px; height: 20px; background: rgba(255,255,255,0.15);"></div>
-            <a href="https://drive.google.com/drive/folders/1Uv10k8B2zxVplEltSa4pTqIzay3LzTz9?usp=drive_link" target="_blank" class="dock-item moon-drive-btn" data-tooltip="Chìa khoá Drive">
-                <i class="fa-brands fa-google-drive"></i>
-            </a>
+        <div class="navigation-dock" id="nav-dock">
+            <div class="dock-item active" id="dock-home" data-tooltip="Thiên hà của mình" onclick="goHome()"><i class="fa-solid fa-house"></i></div>
+            <div style="width: 1px; height: 20px; background: rgba(255,255,255,0.15); align-self:center;"></div>
+            <div class="dock-item" data-tooltip="Khởi đầu (Chương 1)" onclick="triggerStarClick(1)"><i class="fa-solid fa-folder"></i></div>
+            <div class="dock-item" data-tooltip="Nguồn tin (Chương 2)" onclick="triggerStarClick(2)"><i class="fa-solid fa-circle-nodes"></i></div>
+            <div class="dock-item" data-tooltip="Vang vọng (Chương 3)" onclick="triggerStarClick(3)"><i class="fa-solid fa-wand-sparkles"></i></div>
+            <div class="dock-item" data-tooltip="Đồng điệu (Chương 4)" onclick="triggerStarClick(4)"><i class="fa-solid fa-user-group"></i></div>
+            <div class="dock-item" data-tooltip="Sáng tạo (Chương 5)" onclick="triggerStarClick(5)"><i class="fa-solid fa-compass-drafting"></i></div>
+            <div class="dock-item" data-tooltip="Lương tri (Chương 6)" onclick="triggerStarClick(6)"><i class="fa-solid fa-heart-pulse"></i></div>
+            <div style="width: 1px; height: 20px; background: rgba(255,255,255,0.15); align-self:center;"></div>
+            <a href="https://drive.google.com/drive/folders/1Uv10k8B2zxVplEltSa4pTqIzay3LzTz9?usp=drive_link" target="_blank" class="dock-item moon-drive-btn" data-tooltip="Chìa khoá Drive"><i class="fa-brands fa-google-drive"></i></a>
         </div>
-
     </div>
-
-    <!-- Scripting for advanced morphing, dynamic SVG pathing & custom mouse effects -->
     <script>
-        // Space Background stardust floating particles generator
         const canvasContainer = document.getElementById('space-canvas');
         const colors = ['#fbc2eb', '#fdedb3', '#c1f0e4', '#a38cfd', '#ffffff'];
-
         function createStardust() {
             const particleCount = 40;
             for(let i=0; i < particleCount; i++) {
@@ -1256,39 +511,26 @@
                 particle.style.left = Math.random() * 100 + '%';
                 particle.style.top = Math.random() * 100 + '%';
                 particle.style.opacity = Math.random() * 0.7 + 0.1;
-                
-                // Dreamy slow drift animation
                 particle.animate([
                     { transform: 'translate(0, 0) scale(1)' },
                     { transform: `translate(${Math.random() * 60 - 30}px, ${Math.random() * 60 - 30}px) scale(${Math.random() * 0.5 + 0.8})` }
-                ], {
-                    duration: Math.random() * 8000 + 6000,
-                    iterations: Infinity,
-                    direction: 'alternate',
-                    easing: 'ease-in-out'
-                });
-                
+                ], { duration: Math.random() * 8000 + 6000, iterations: Infinity, direction: 'alternate', easing: 'ease-in-out' });
                 canvasContainer.appendChild(particle);
             }
         }
         createStardust();
 
-        // Custom Mouse Trail Sparkles
         document.addEventListener('mousemove', function(e) {
-            if (Math.random() > 0.15) return; // limit density for performance
+            if (Math.random() > 0.15) return;
             const trail = document.createElement('div');
             trail.className = 'cursor-glow';
             trail.style.left = e.clientX + 'px';
             trail.style.top = e.clientY + 'px';
             trail.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
             document.body.appendChild(trail);
-            
-            setTimeout(() => {
-                trail.remove();
-            }, 800);
+            setTimeout(() => { trail.remove(); }, 800);
         });
 
-        // Interactive constellation paths & split screen morphing controller
         const profileView = document.getElementById('profile-view');
         const profileReflection = document.getElementById('profile-reflection');
         const profileTabs = document.getElementById('profile-tabs');
@@ -1297,22 +539,19 @@
         const contentDisplays = document.querySelectorAll('.content-display');
         const svgLines = document.querySelectorAll('.constellation-svg line');
 
-        // Tương tác chuyển đổi Tab kính mờ mượt mà ở cột trái
         function switchProfileTab(tabName) {
             const btnIntro = document.getElementById('tab-intro');
             const btnReflection = document.getElementById('tab-reflection');
-
             if (tabName === 'intro') {
                 btnIntro.classList.add('active');
                 btnReflection.classList.remove('active');
-
                 profileReflection.style.opacity = '0';
                 profileReflection.style.transform = 'translateY(-10px)';
                 setTimeout(() => {
                     profileReflection.style.display = 'none';
                     profileView.style.display = 'flex';
                     profileView.style.transform = 'translateY(10px)';
-                    profileView.offsetHeight; // force reflow
+                    profileView.offsetHeight;
                     setTimeout(() => {
                         profileView.style.opacity = '1';
                         profileView.style.transform = 'translateY(0)';
@@ -1321,14 +560,13 @@
             } else {
                 btnIntro.classList.remove('active');
                 btnReflection.classList.add('active');
-
                 profileView.style.opacity = '0';
                 profileView.style.transform = 'translateY(-10px)';
                 setTimeout(() => {
                     profileView.style.display = 'none';
                     profileReflection.style.display = 'block';
                     profileReflection.style.transform = 'translateY(10px)';
-                    profileReflection.offsetHeight; // force reflow
+                    profileReflection.offsetHeight;
                     setTimeout(() => {
                         profileReflection.style.opacity = '1';
                         profileReflection.style.transform = 'translateY(0)';
@@ -1337,27 +575,20 @@
             }
         }
 
-        // CHỐNG CHỒNG CHÉO BÀI TẬP: JS State Machine hoàn hảo
         function selectStar(taskId, element) {
-            // 1. Đồng bộ hóa trạng thái vì sao và quỹ đạo SVG
             starNodes.forEach(node => node.classList.remove('selected-node'));
             element.classList.add('selected-node');
-
             svgLines.forEach(line => line.classList.remove('active-line'));
             const linesToHighlight = element.getAttribute('data-lines').split(' ');
             linesToHighlight.forEach(lineId => {
                 const line = document.getElementById(lineId);
                 if(line) line.classList.add('active-line');
             });
-
-            // Đồng bộ hóa trạng thái Menu Dock phía dưới
             const dockItems = document.querySelectorAll('.dock-item');
             dockItems.forEach(item => item.classList.remove('active'));
             docHome.classList.remove('active');
             const correspondingDockItem = dockItems[taskId];
             if (correspondingDockItem) correspondingDockItem.classList.add('active');
-
-            // 2. Ẩn mềm toàn bộ nội dung cũ trên cột trái (Cả Intro, Reflection và các bài tập khác)
             const allPossibleViews = [profileView, profileReflection, profileTabs, ...contentDisplays];
             allPossibleViews.forEach(view => {
                 if (view.style.display !== 'none') {
@@ -1365,22 +596,17 @@
                     view.style.transform = 'translateY(-10px)';
                 }
             });
-
-            // 3. Chờ chuyển động biến mất hoàn tất (250ms) -> Thiết lập display: none đồng loạt -> Tải bài tập mới
             setTimeout(() => {
                 allPossibleViews.forEach(view => {
                     view.style.display = 'none';
                     view.classList.remove('active-fade');
                 });
-
-                // Kích hoạt duy nhất bài tập được lựa chọn
                 const targetView = document.getElementById(`task${taskId}-view`);
                 if(targetView) {
                     targetView.style.display = 'flex';
                     targetView.style.opacity = '0';
                     targetView.style.transform = 'translateY(15px)';
-                    targetView.offsetHeight; // force reflow
-                    
+                    targetView.offsetHeight;
                     setTimeout(() => {
                         targetView.style.opacity = '1';
                         targetView.style.transform = 'translateY(0)';
@@ -1391,37 +617,27 @@
         }
 
         function goHome() {
-            // 1. Reset các chòm sao bên phải
             starNodes.forEach(node => node.classList.remove('selected-node'));
             svgLines.forEach(line => line.classList.remove('active-line'));
-
-            // 2. Ẩn toàn bộ bài tập đang hiển thị bên trái
             contentDisplays.forEach(disp => {
                 if(disp.style.display !== 'none') {
                     disp.style.opacity = '0';
                     disp.style.transform = 'translateY(-10px)';
                 }
             });
-
-            // 3. Trả giao diện cột trái về màn hình Home mặc định
             setTimeout(() => {
                 contentDisplays.forEach(disp => {
                     disp.style.display = 'none';
                     disp.classList.remove('active-fade');
                 });
-
-                // Khôi phục Tabs và Profile View
                 profileTabs.style.display = 'flex';
                 profileView.style.display = 'flex';
                 profileTabs.style.transform = 'translateY(10px)';
                 profileView.style.transform = 'translateY(10px)';
-                
-                // Trả về mặc định Tab 1
                 document.getElementById('tab-intro').classList.add('active');
                 document.getElementById('tab-reflection').classList.remove('active');
                 profileReflection.style.display = 'none';
-
-                profileTabs.offsetHeight; // force reflow
+                profileTabs.offsetHeight;
                 setTimeout(() => {
                     profileTabs.style.opacity = '1';
                     profileTabs.style.transform = 'translateY(0)';
@@ -1429,118 +645,97 @@
                     profileView.style.transform = 'translateY(0)';
                 }, 50);
             }, 250);
-
-            // 4. Đồng bộ Menu Dock
             const dockItems = document.querySelectorAll('.dock-item');
             dockItems.forEach(item => item.classList.remove('active'));
             docHome.classList.add('active');
         }
 
-// Liên kết sự kiện nhấp Dock điều hướng đến chòm sao tương ứng
-const starClassMap = {
-    1: '.sn-1',
-    2: '.sn-2',
-    3: '.sn-3',
-    4: '.sn-4',
-    5: '.sn-5',
-    6: '.sn-6'
-};
+        const starClassMap = { 1: '.sn-1', 2: '.sn-2', 3: '.sn-3', 4: '.sn-4', 5: '.sn-5', 6: '.sn-6' };
+        function triggerStarClick(taskId) {
+            const starElement = document.querySelector(starClassMap[taskId]);
+            if(starElement) { selectStar(taskId, starElement); }
+        }
 
-function triggerStarClick(taskId) {
-    const starElement = document.querySelector(starClassMap[taskId]);
-    if(starElement) {
-        selectStar(taskId, starElement);
-    }
-}
+        document.querySelectorAll('.dock-item[data-tooltip*="Chương"]').forEach((dockEl, idx) => {
+            const taskId = idx + 1;
+            const starElement = document.querySelector(starClassMap[taskId]);
+            if (!starElement) return;
+            dockEl.addEventListener('mouseenter', () => { starElement.classList.add('dock-preview'); });
+            dockEl.addEventListener('mouseleave', () => { starElement.classList.remove('dock-preview'); });
+        });
 
-// Rê chuột vào icon chương ở dock -> ngôi sao tương ứng sáng lên cùng tông màu
-document.querySelectorAll('.dock-item[data-tooltip*="Chương"]').forEach((dockEl, idx) => {
-    const taskId = idx + 1;
-    const starElement = document.querySelector(starClassMap[taskId]);
-    if (!starElement) return;
+        // ---- Hiệu ứng "phóng đại" kiểu iOS Dock: icon gần chuột phóng to, icon xa dần thu nhỏ lại ----
+        const dockEl = document.getElementById('nav-dock');
+        const dockChildren = Array.from(dockEl.querySelectorAll('.dock-item'));
+        const MAX_SCALE = 1.55;
+        const MAX_DIST = 90; // bán kính (px) ảnh hưởng của hiệu ứng phóng đại
 
-    dockEl.addEventListener('mouseenter', () => {
-        starElement.classList.add('dock-preview');
-    });
-    dockEl.addEventListener('mouseleave', () => {
-        starElement.classList.remove('dock-preview');
-    });
-});
+        function applyDockMagnify(mouseX) {
+            dockChildren.forEach(item => {
+                const rect = item.getBoundingClientRect();
+                const itemCenter = rect.left + rect.width / 2;
+                const dist = Math.abs(mouseX - itemCenter);
+                let scale = 1;
+                if (dist < MAX_DIST) {
+                    scale = 1 + (MAX_SCALE - 1) * (1 - dist / MAX_DIST);
+                }
+                item.style.transform = `scale(${scale})`;
+            });
+        }
 
-        // --- 6 MODULE HOẠT ẢNH TƯƠNG TÁC ĐỒ HỌA (INTERACTIVE WIDGETS) ---
-        
-        // Widget 1: Windows File Explorer Simulation
+        function resetDockMagnify() {
+            dockChildren.forEach(item => { item.style.transform = 'scale(1)'; });
+        }
+
+        dockEl.addEventListener('mousemove', (e) => { applyDockMagnify(e.clientX); });
+        dockEl.addEventListener('mouseleave', resetDockMagnify);
+
         function interactExplorer(action) {
             const tree = document.getElementById('explorer-tree');
             if (action === 'create') {
-                tree.innerHTML = `📁 ThucHanh_PhamDoVanAnh (B3)<br>
-                                  &nbsp;&nbsp;📂 TaiLieu (B7)<br>
-                                  &nbsp;&nbsp;📄 GhiChu.txt (B5)`;
+                tree.innerHTML = `📁 ThucHanh_PhamDoVanAnh (B3)<br>&nbsp;&nbsp;📂 TaiLieu (B7)<br>&nbsp;&nbsp;📄 GhiChu.txt (B5)`;
             } else if (action === 'rename') {
-                tree.innerHTML = `📁 ThucHanh_PhamDoVanAnh (B3)<br>
-                                  &nbsp;&nbsp;📂 TaiLieu (B7)<br>
-                                  &nbsp;&nbsp;📄 GhiChuQuanTrong.txt (B6)`;
+                tree.innerHTML = `📁 ThucHanh_PhamDoVanAnh (B3)<br>&nbsp;&nbsp;📂 TaiLieu (B7)<br>&nbsp;&nbsp;📄 GhiChuQuanTrong.txt (B6)`;
             } else if (action === 'move') {
-                tree.innerHTML = `📁 ThucHanh_PhamDoVanAnh (B3)<br>
-                                  &nbsp;&nbsp;📂 TaiLieu (B7)<br>
-                                  &nbsp;&nbsp;&nbsp;&nbsp;📄 DiChuyen.txt (B9)<br>
-                                  &nbsp;&nbsp;📄 GhiChuQuanTrong.txt (B8)`;
+                tree.innerHTML = `📁 ThucHanh_PhamDoVanAnh (B3)<br>&nbsp;&nbsp;📂 TaiLieu (B7)<br>&nbsp;&nbsp;&nbsp;&nbsp;📄 DiChuyen.txt (B9)<br>&nbsp;&nbsp;📄 GhiChuQuanTrong.txt (B8)`;
             } else if (action === 'delete') {
-                tree.innerHTML = `📁 ThucHanh_PhamDoVanAnh (B3)<br>
-                                  &nbsp;&nbsp;📂 TaiLieu (B7)<br>
-                                  &nbsp;&nbsp;🗑️ Recycle Bin (Chứa GhiChuQuanTrong.txt - B10)`;
+                tree.innerHTML = `📁 ThucHanh_PhamDoVanAnh (B3)<br>&nbsp;&nbsp;📂 TaiLieu (B7)<br>&nbsp;&nbsp;🗑️ Recycle Bin (Chứa GhiChuQuanTrong.txt - B10)`;
             }
         }
 
-        // Widget 2: Source Grader Gauge
         function interactSource(source, element) {
             document.querySelectorAll('.src-btn').forEach(btn => btn.classList.remove('active'));
             element.classList.add('active');
-            
             const gauge = document.getElementById('src-gauge');
             const desc = document.getElementById('src-desc');
-            
             if (source === 'tlili') {
-                gauge.innerHTML = "5/5";
-                gauge.style.borderColor = "var(--pastel-green)";
-                desc.innerHTML = `<strong>Nhà xuất bản:</strong> Springer (Uy tín học thuật)<br>
-                                  <strong>Phương pháp:</strong> Nghiên cứu định tính về ChatGPT`;
+                gauge.innerHTML = "5/5"; gauge.style.borderColor = "var(--pastel-green)";
+                desc.innerHTML = `<strong>Nhà xuất bản:</strong> Springer (Uy tín học thuật)<br><strong>Phương pháp:</strong> Nghiên cứu định tính về ChatGPT`;
             } else if (source === 'unesco') {
-                gauge.innerHTML = "5/5";
-                gauge.style.borderColor = "var(--pastel-yellow)";
-                desc.innerHTML = `<strong>Nhà xuất bản:</strong> UNESCO (Chính thống toàn cầu)<br>
-                                  <strong>Phương pháp:</strong> Cẩm nang hướng dẫn chuyển đổi số`;
+                gauge.innerHTML = "5/5"; gauge.style.borderColor = "var(--pastel-yellow)";
+                desc.innerHTML = `<strong>Nhà xuất bản:</strong> UNESCO (Chính thống toàn cầu)<br><strong>Phương pháp:</strong> Cẩm nang hướng dẫn chuyển đổi số`;
             } else if (source === 'arxiv') {
-                gauge.innerHTML = "4/5";
-                gauge.style.borderColor = "var(--pastel-pink)";
-                desc.innerHTML = `<strong>Nhà xuất bản:</strong> arXiv (Kho lưu trữ tự do)<br>
-                                  <strong>Phương pháp:</strong> Khảo sát thực trạng ý kiến người học`;
+                gauge.innerHTML = "4/5"; gauge.style.borderColor = "var(--pastel-pink)";
+                desc.innerHTML = `<strong>Nhà xuất bản:</strong> arXiv (Kho lưu trữ tự do)<br><strong>Phương pháp:</strong> Khảo sát thực trạng ý kiến người học`;
             }
         }
 
-        // Widget 3: ChatGPT Prompts comparator
         function interactPrompt(level, element) {
             document.querySelectorAll('.pr-tab').forEach(tab => tab.classList.remove('active'));
             element.classList.add('active');
-            
             const output = document.getElementById('prompt-output');
             if (level === 'basic') {
-                output.innerHTML = `<strong>Prompt:</strong> "Hãy tóm tắt bài đọc tiếng Đức sau..."<br>
-                                    <span style="color:var(--text-sub);">💬 AI tóm tắt sơ sài, bỏ sót các chi tiết giải thưởng quan trọng của văn bản.</span>`;
+                output.innerHTML = `<strong>Prompt:</strong> "Hãy tóm tắt bài đọc tiếng Đức sau..."<br><span style="color:var(--text-sub);">💬 AI tóm tắt sơ sài, bỏ sót các chi tiết giải thưởng quan trọng của văn bản.</span>`;
             } else if (level === 'advanced') {
-                output.innerHTML = `<strong>Prompt:</strong> "Tóm tắt bài đọc tiếng Đức bằng tiếng Việt, từ 100-150 từ, dạng gạch đầu dòng..."<br>
-                                    <span style="color:var(--pastel-green);">💬 Kết quả đầy đủ ý chính, phân tách rạch ròi, đúng dung lượng giới hạn.</span>`;
+                output.innerHTML = `<strong>Prompt:</strong> "Tóm tắt bài đọc tiếng Đức bằng tiếng Việt, từ 100-150 từ, dạng gạch đầu dòng..."<br><span style="color:var(--pastel-green);">💬 Kết quả đầy đủ ý chính, phân tách rạch ròi, đúng dung lượng giới hạn.</span>`;
             } else if (level === 'expert') {
-                output.innerHTML = `<strong>Prompt:</strong> "[Role B1-B2 Teacher] Phân tích văn bản hình ảnh này, tóm tắt khoa học và đưa ra ví dụ..."<br>
-                                    <span style="color:var(--pastel-yellow);">💬 Kết quả chuẩn văn phong sư phạm, giải thích ngữ pháp tiếng Đức vô cùng chi tiết.</span>`;
+                output.innerHTML = `<strong>Prompt:</strong> "[Role B1-B2 Teacher] Phân tích văn bản hình ảnh này, tóm tắt khoa học và đưa ra ví dụ..."<br><span style="color:var(--pastel-yellow);">💬 Kết quả chuẩn văn phong sư phạm, giải thích ngữ pháp tiếng Đức vô cùng chi tiết.</span>`;
             }
         }
 
-        // Widget 4: Dynamic Team Workspace Hub
         function interactCollab(tool, element) {
             document.querySelectorAll('.cl-tab').forEach(tab => tab.classList.remove('active'));
             element.classList.add('active');
-            
             const screen = document.getElementById('collab-screen');
             if (tool === 'zalo') {
                 screen.innerHTML = `[Nhóm 30] Vân Anh: "Chào các bạn, mình đã up kịch bản thô lên Docs, nhờ các bạn vào sửa đổi nhé!"`;
@@ -1551,35 +746,21 @@ document.querySelectorAll('.dock-item[data-tooltip*="Chương"]').forEach((dockE
             }
         }
 
-        // Widget 5: AI Percentage Dynamic Radar
         function interactArt() {
             const ai = document.getElementById('art-ai');
             const human = document.getElementById('art-human');
-            
-            if (ai.innerHTML === "40%") {
-                ai.innerHTML = "Ý tưởng";
-                human.innerHTML = "Thẩm mỹ";
-            } else {
-                ai.innerHTML = "40%";
-                human.innerHTML = "60%";
-            }
+            if (ai.innerHTML === "40%") { ai.innerHTML = "Ý tưởng"; human.innerHTML = "Thẩm mỹ"; }
+            else { ai.innerHTML = "40%"; human.innerHTML = "60%"; }
         }
 
-        // Widget 6: Ethical Oath Toggles
         function interactOath(type, element) {
             document.querySelectorAll('.oath-badge').forEach(b => b.classList.remove('active'));
             element.classList.add('active');
-            
             const title = document.getElementById('oath-title');
-            if (type === 'trans') {
-                title.innerHTML = "📢 Cam kết công khai việc đồng hành cùng AI";
-            } else if (type === 'verify') {
-                title.innerHTML = "🔍 Luôn kiểm chứng chéo thông tin bằng tài liệu chuẩn";
-            } else if (type === 'integrity') {
-                title.innerHTML = "🛡️ Nói KHÔNG với hành vi chép nguyên bản AI để nộp";
-            } else if (type === 'crit') {
-                title.innerHTML = "🧠 Giữ vững óc phán đoán phản biện và không phụ thuộc";
-            }
+            if (type === 'trans') title.innerHTML = "📢 Cam kết công khai việc đồng hành cùng AI";
+            else if (type === 'verify') title.innerHTML = "🔍 Luôn kiểm chứng chéo thông tin bằng tài liệu chuẩn";
+            else if (type === 'integrity') title.innerHTML = "🛡️ Nói KHÔNG với hành vi chép nguyên bản AI để nộp";
+            else if (type === 'crit') title.innerHTML = "🧠 Giữ vững óc phán đoán phản biện và không phụ thuộc";
         }
     </script>
 </body>
