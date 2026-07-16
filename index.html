@@ -708,7 +708,15 @@
             color: var(--pastel-yellow);
             border-color: var(--pastel-yellow);
         }
-
+        .star-node.dock-preview .star-core {
+            transform: scale(1.3);
+            border-color: var(--accent-purple);
+            box-shadow: 0 0 20px var(--pastel-pink), 0 0 35px var(--accent-purple);
+        }
+        .star-node.dock-preview .star-label {
+            color: #fff;
+            border-color: var(--pastel-pink);
+}
         /* SVG constellations node coordinates */
         .sn-1 { left: 15%; top: 25%; }
         .sn-2 { left: 45%; top: 18%; }
@@ -754,12 +762,11 @@
             color: #fff;
             background: rgba(255,255,255,0.08);
             box-shadow: 0 0 15px rgba(255,255,255,0.05);
-}
-
-.dock-item.active {
-    color: var(--satellite-glow);
-    background: rgba(251, 253, 198, 0.12);
-    box-shadow: 0 0 15px var(--satellite-glow);
+        }
+        .dock-item.active {
+            color: var(--satellite-glow);
+            background: rgba(251, 253, 198, 0.12);
+            box-shadow: 0 0 15px var(--satellite-glow);
 }
 
         /* Tooltip for dock */
@@ -843,16 +850,6 @@
             .space-map-panel {
                 min-height: 350px;
             }
-            .star-node.dock-preview .star-core {
-    transform: scale(1.3);
-    border-color: var(--accent-purple);
-    box-shadow: 0 0 20px var(--pastel-pink), 0 0 35px var(--accent-purple);
-}
-
-.star-node.dock-preview .star-label {
-    color: #fff;
-    border-color: var(--pastel-pink);
-}
             .navigation-dock {
                 bottom: 15px;
                 padding: 5px 15px;
@@ -1441,7 +1438,7 @@
             docHome.classList.add('active');
         }
 
-       // Liên kết sự kiện nhấp Dock điều hướng đến chòm sao tương ứng
+// Liên kết sự kiện nhấp Dock điều hướng đến chòm sao tương ứng
 const starClassMap = {
     1: '.sn-1',
     2: '.sn-2',
@@ -1471,11 +1468,6 @@ document.querySelectorAll('.dock-item[data-tooltip*="Chương"]').forEach((dockE
         starElement.classList.remove('dock-preview');
     });
 });
-            const starElement = document.querySelector(starClassMap[taskId]);
-            if(starElement) {
-                selectStar(taskId, starElement);
-            }
-        }
 
         // --- 6 MODULE HOẠT ẢNH TƯƠNG TÁC ĐỒ HỌA (INTERACTIVE WIDGETS) ---
         
