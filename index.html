@@ -843,6 +843,16 @@
             .space-map-panel {
                 min-height: 350px;
             }
+            .star-node.dock-preview .star-core {
+    transform: scale(1.3);
+    border-color: var(--accent-purple);
+    box-shadow: 0 0 20px var(--pastel-pink), 0 0 35px var(--accent-purple);
+}
+
+.star-node.dock-preview .star-label {
+    color: #fff;
+    border-color: var(--pastel-pink);
+}
             .navigation-dock {
                 bottom: 15px;
                 padding: 5px 15px;
@@ -1431,16 +1441,36 @@
             docHome.classList.add('active');
         }
 
-        // Liên kết sự kiện nhấp Dock điều hướng đến chòm sao tương ứng
-        function triggerStarClick(taskId) {
-            const starClassMap = {
-                1: '.sn-1',
-                2: '.sn-2',
-                3: '.sn-3',
-                4: '.sn-4',
-                5: '.sn-5',
-                6: '.sn-6'
-            };
+       // Liên kết sự kiện nhấp Dock điều hướng đến chòm sao tương ứng
+const starClassMap = {
+    1: '.sn-1',
+    2: '.sn-2',
+    3: '.sn-3',
+    4: '.sn-4',
+    5: '.sn-5',
+    6: '.sn-6'
+};
+
+function triggerStarClick(taskId) {
+    const starElement = document.querySelector(starClassMap[taskId]);
+    if(starElement) {
+        selectStar(taskId, starElement);
+    }
+}
+
+// Rê chuột vào icon chương ở dock -> ngôi sao tương ứng sáng lên cùng tông màu
+document.querySelectorAll('.dock-item[data-tooltip*="Chương"]').forEach((dockEl, idx) => {
+    const taskId = idx + 1;
+    const starElement = document.querySelector(starClassMap[taskId]);
+    if (!starElement) return;
+
+    dockEl.addEventListener('mouseenter', () => {
+        starElement.classList.add('dock-preview');
+    });
+    dockEl.addEventListener('mouseleave', () => {
+        starElement.classList.remove('dock-preview');
+    });
+});
             const starElement = document.querySelector(starClassMap[taskId]);
             if(starElement) {
                 selectStar(taskId, starElement);
