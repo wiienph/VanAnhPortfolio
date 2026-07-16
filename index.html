@@ -1426,7 +1426,7 @@
         }
 
         // Liên kết sự kiện nhấp Dock điều hướng đến chòm sao tương ứng
-        function triggerStarClick(taskId + 1) {
+        function triggerStarClick(taskId) {
             const starClassMap = {
                 1: '.sn-1',
                 2: '.sn-2',
@@ -1437,7 +1437,7 @@
             };
             const starElement = document.querySelector(starClassMap[taskId]);
             if(starElement) {
-                selectStar(taskId + 1, starElement);
+                selectStar(taskId, starElement);
             }
         }
 
