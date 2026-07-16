@@ -441,7 +441,7 @@
                     </div>
                 </div>
             </div>
-            <div style="font-size: 0.75rem; color: var(--text-sub); border-top: 1px solid var(--glass-border); padding-top: 15px; margin-top: 15px; text-align: center;">
+            <div id="copyright-footer" style="font-size: 0.75rem; color: var(--text-sub); border-top: 1px solid var(--glass-border); padding-top: 15px; margin-top: 15px; text-align: center;">
                 Phạm Đỗ Vân Anh • Digital Portfolio © 2026
             </div>
         </div>
@@ -576,6 +576,7 @@
         }
 
         function selectStar(taskId, element) {
+            document.getElementById("copyright-footer").style.display = "none";
             starNodes.forEach(node => node.classList.remove('selected-node'));
             element.classList.add('selected-node');
             svgLines.forEach(line => line.classList.remove('active-line'));
@@ -617,6 +618,7 @@
         }
 
         function goHome() {
+            document.getElementById("copyright-footer").style.display = "block";
             starNodes.forEach(node => node.classList.remove('selected-node'));
             svgLines.forEach(line => line.classList.remove('active-line'));
             contentDisplays.forEach(disp => {
