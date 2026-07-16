@@ -1343,7 +1343,7 @@
             const dockItems = document.querySelectorAll('.dock-item');
             dockItems.forEach(item => item.classList.remove('active'));
             docHome.classList.remove('active');
-            const correspondingDockItem = dockItems[taskId + 1];
+            const correspondingDockItem = dockItems[taskId];
             if (correspondingDockItem) correspondingDockItem.classList.add('active');
 
             // 2. Ẩn mềm toàn bộ nội dung cũ trên cột trái (Cả Intro, Reflection và các bài tập khác)
